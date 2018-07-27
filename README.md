@@ -1,4 +1,5 @@
 # JIRA activity
+This tool parses your jira activity stream and returns a list of your workitems grouped by day.
 
 ## How to use
 ### Initial setup
