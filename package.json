@@ -4,7 +4,7 @@
     "description": "This tool parses your jira activity stream and returns a list of your workitems grouped by day.",
     "main": "index.ts",
     "bin": {
-        "jira-activity": "./lib/index.js"
+        "jira-activity": "./dist/index.js"
     },
     "scripts": {
         "dev": "ts-node src/index.ts",
