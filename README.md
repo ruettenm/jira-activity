@@ -32,4 +32,12 @@ nvm use
 npm i yarn@1.6.0
 ```
 
-### Initial setup
+### How to call the library
+
+```
+yarn dev <command>
+
+# e.g. >>
+yarn dev list
+yarn dev defaults
+```
