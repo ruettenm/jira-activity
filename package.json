@@ -1,0 +1,46 @@
+{
+    "name": "de.ruettenm.jira-activity",
+    "version": "0.1.0",
+    "description": "This tool parses your jira activity stream and returns a list of your workitems grouped by day.",
+    "main": "index.ts",
+    "bin": {
+        "jira-activity": "./lib/index.js"
+    },
+    "scripts": {
+        "dev": "ts-node src/index.ts",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "private": false,
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/ruettenm/jira-activity"
+    },
+    "engines": {
+        "npm": ">4.0",
+        "yarn": "=1.6.0",
+        "node": ">=8.11.3"
+    },
+    "keywords": [
+        "jira",
+        "activity"
+    ],
+    "author": "Matthias Rütten <matthias.ruetten@codecentric.de>",
+    "license": "MIT",
+    "dependencies": {
+        "commander": "^2.16.0",
+        "inquirer": "^6.0.0",
+        "settings-store": "1.4.0",
+        "superagent": "^3.8.3",
+        "superagent-xml2jsparser": "^0.1.1",
+        "xml-parser": "^1.2.1"
+    },
+    "devDependencies": {
+        "@types/commander": "^2.12.2",
+        "@types/inquirer": "^0.0.42",
+        "@types/node": "8.9",
+        "@types/superagent": "^3.8.2",
+        "@types/xml-parser": "^1.2.29",
+        "ts-node": "6",
+        "typescript": "^2.9.2"
+    }
+}

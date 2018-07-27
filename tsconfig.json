@@ -1,0 +1,21 @@
+{
+    "compilerOptions": {
+        "outDir": "./lib",
+        "allowJs": false,
+        "target": "es2017",
+        "module": "commonjs",
+        "moduleResolution": "node",
+        "sourceMap": true,
+        "strictNullChecks": true,
+        "noImplicitAny": true,
+        "noUnusedParameters": true,
+        "experimentalDecorators": true,
+        "noUnusedLocals": true,
+        "importHelpers": true,
+        "lib": [ "es7", "dom", "es2017.object" ]
+    },
+    "include": [
+        "./src/**/*",
+        "./types/**/*"
+    ]
+}
