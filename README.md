@@ -9,7 +9,7 @@ npm i -g jira-activity
 
 # setup your defaults
 jira-activity hostname some.hostname
-jira-activity hostname your@username.com
+jira-activity username your@username.com
 ```
 
 ### Show your activity
