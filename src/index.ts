@@ -2,15 +2,19 @@
 
 import * as program from 'commander'
 import * as inquirer from 'inquirer'
+import * as cliSpinner from 'cli-spinner'
+import * as settingsStore from 'settings-store'
 
 import { getActivities, JiraSettings } from './jira'
 import { print } from './print'
-import * as settingsStore from "settings-store"
 
 settingsStore.init({
     appName: 'jira-activity',
     reverseDNS: 'de.ruettenm.jira-activity'
 })
+
+const spinner = new cliSpinner.Spinner('accessing jira.. %s');
+spinner.setSpinnerString('|/-\\');
 
 const setDefaultHostnameCommand = async () => {
     try {
@@ -64,7 +68,7 @@ const listActivityCommand = async (command: any) => {
 
         if (!hostname || !username) {
             console.info('Please specify your username and hostname either per command options or defaults.')
-            console.info('yarn dev activity --help')
+            console.info('jira-activity --help')
 
             showDefaultsCommand()
         } else {
@@ -80,7 +84,12 @@ const listActivityCommand = async (command: any) => {
                 password,
                 hostname
             }
-            print(await getActivities(jiraSettings, maxResults))
+
+            spinner.start()
+            const activities = await getActivities(jiraSettings, maxResults)
+            spinner.stop(true)
+
+            print(activities)
         }
 
         process.exit(0)

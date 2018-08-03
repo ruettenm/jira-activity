@@ -33,6 +33,7 @@
     "author": "Matthias Rütten <matthias.ruetten@codecentric.de>",
     "license": "MIT",
     "dependencies": {
+        "cli-spinner": "0.2.8",
         "commander": "^2.16.0",
         "inquirer": "^6.0.0",
         "settings-store": "1.4.0",
