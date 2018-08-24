@@ -25,6 +25,7 @@ jira-activity list -u your@username.com -h some.hostname
 jira-activity list -f week
 jira-activity list -f month
 ```
+![Example Image](https://raw.githubusercontent.com/ruettenm/jira-activity/master/img/example.png)
 
 ## How to develop
 ### Initial setup
