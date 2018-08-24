@@ -1,5 +1,5 @@
 # JIRA activity
-This tool parses your jira activity stream and returns a list of your workitems grouped by day. 
+This tool parses your jira activity stream and returns a list of your work items grouped by day. 
 The official atlassian documentation for the jira activity stream can be found [here](https://developer.atlassian.com/server/framework/atlassian-sdk/consuming-an-activity-streams-feed).
 
 ## How to use
