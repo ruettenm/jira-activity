@@ -9,7 +9,7 @@
     "scripts": {
         "dev": "ts-node src/index.ts",
         "build": "tsc",
-        "release": "npm-github-release",
+        "release": "npm run build && npm-github-release",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "files": [

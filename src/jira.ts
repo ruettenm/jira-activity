@@ -13,9 +13,12 @@ export interface JiraSettings {
     password: string
 }
 
-export interface ActivityEntry {
+export interface CachedEntry {
     id: string
     title: string
+}
+
+export interface ActivityEntry extends CachedEntry {
     date: string
 }
 
@@ -44,7 +47,7 @@ export const getActivities = async (jiraSettings: JiraSettings, maxResults: numb
     return result
 }
     
-const getParentIssue = async (jiraSettings: JiraSettings, activity: ActivityEntry): Promise<ActivityEntry | undefined> => {
+const getParentIssue = async (jiraSettings: JiraSettings, activity: ActivityEntry): Promise<CachedEntry | undefined> => {
     const parentIssue = settingsStore.value(`issues.${activity.id}`)
     if (parentIssue) {
         return parentIssue
@@ -59,40 +62,45 @@ const getParentIssue = async (jiraSettings: JiraSettings, activity: ActivityEntr
     return undefined
 }
 
-const getParentIssueFromJira = async (jiraSettings: JiraSettings, activity: ActivityEntry) => {
+const getParentIssueFromJira = async (jiraSettings: JiraSettings, activity: ActivityEntry): Promise<CachedEntry | undefined> => {
     const response = await requestWithCredentials(jiraSettings, `rest/api/2/issue/${activity.id}`)
     const parent = response.body.fields.parent
 
     if (parent) {
         return {
             id: parent.key,
-            title: parent.fields.summary,
-            date: activity.date
+            title: parent.fields.summary
         }
     }
 
     return undefined
+}
+
+const isValidActivityEntry = (activityEntry: any) => {
+    return activityEntry && activityEntry.title && activityEntry.title[0] && activityEntry.summary && activityEntry.summary[0]
 }
 
 const convertToActivityEntry = (entry: any): ActivityEntry | undefined => {
-    const activityEntry = entry['activity:object'][0]
+    if (entry.published && entry.published[0]) {
+        const activityEntry = entry['activity:object'][0]
 
-    if (activityEntry && activityEntry.title && activityEntry.title[0] && activityEntry.summary && activityEntry.summary[0] && entry.published && entry.published[0]) {
-        const title = activityEntry.title[0]['_']
-        const summary = activityEntry.summary[0]['_']
-        const published = entry.published[0].split('T')[0]
+        if (isValidActivityEntry(activityEntry)) {
+            const title = activityEntry.title[0]['_']
+            const summary = activityEntry.summary[0]['_']
+            const published = entry.published[0].split('T')[0]
 
-        return {
-            id: title,
-            title: summary,
-            date: published
+            return {
+                id: title,
+                title: summary,
+                date: published
+            }
         }
     }
 
     return undefined
 }
 
-const addToResult = async (result: GroupedActivities, entry: ActivityEntry, date: string) => {
+const addToResult = async (result: GroupedActivities, entry: CachedEntry, date: string) => {
     if (!result.hasOwnProperty(date)) {
         result[date] = {}
     }
