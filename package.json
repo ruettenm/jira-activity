@@ -36,6 +36,7 @@
         "cli-spinner": "0.2.8",
         "commander": "^2.16.0",
         "inquirer": "^6.0.0",
+        "moment": "^2.22.2",
         "settings-store": "1.4.0",
         "superagent": "^3.8.3",
         "superagent-xml2jsparser": "^0.1.1",
@@ -44,6 +45,7 @@
     "devDependencies": {
         "@types/commander": "^2.12.2",
         "@types/inquirer": "^0.0.42",
+        "@types/moment": "^2.13.0",
         "@types/node": "8.9",
         "@types/superagent": "^3.8.2",
         "@types/xml-parser": "^1.2.29",

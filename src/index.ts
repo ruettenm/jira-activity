@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+import * as moment from 'moment'
 import * as program from 'commander'
 import * as inquirer from 'inquirer'
 import * as cliSpinner from 'cli-spinner'
@@ -60,11 +61,20 @@ const showDefaultsCommand = () => {
     process.exit(0)
 }
 
+
 const listActivityCommand = async (command: any) => {
     try {
         const hostname = command.hostname || settingsStore.value('settings.hostname')
         const username = command.username || settingsStore.value('settings.username')
-        const maxResults = command.max || 200
+        const maxResults = command.max || 500
+        const filter = command.filter
+
+        if (filter) {
+            if (!['week', 'month'].includes(filter)) {
+                console.error('Please use the term "week" or "month" to filter the output')
+                process.exit(1)
+            }
+        }
 
         if (!hostname || !username) {
             console.info('Please specify your username and hostname either per command options or defaults.')
@@ -86,7 +96,11 @@ const listActivityCommand = async (command: any) => {
             }
 
             spinner.start()
-            const activities = await getActivities(jiraSettings, maxResults)
+            const activities = await getActivities(
+                jiraSettings,
+                maxResults,
+                filter ? moment().startOf(filter).unix() * 1000 : undefined
+            )
             spinner.stop(true)
 
             print(activities)
@@ -104,7 +118,8 @@ program
     .action(listActivityCommand)
     .option('-h, --hostname <hostname>', 'specifies the hostname which is used')
     .option('-u, --username <username>', 'specifies the username which is used')
-    .option('-m, --max <number>', 'specifies the number of max results. The default is: 200', parseInt)
+    .option('-f, --filter <type>', 'filters the list to the current week or month [type: week or month]')
+    .option('-m, --max <number>', 'specifies the number of max results. The default is: 500', parseInt)
     .description('Loads your activity and lists the parent issues you have worked on grouped by day')
 
 program

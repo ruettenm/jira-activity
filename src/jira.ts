@@ -25,8 +25,9 @@ export interface GroupedActivities {
     }
 }
 
-export const getActivities = async (jiraSettings: JiraSettings, maxResults: number): Promise<GroupedActivities> => {
-    const url = `activity?maxResults=${maxResults}&streams=user+IS+${encodeURIComponent(jiraSettings.username)}&os_authType=basic`
+export const getActivities = async (jiraSettings: JiraSettings, maxResults: number, fromDate?: number): Promise<GroupedActivities> => {
+    const fromDateFilter = fromDate ? `&streams=update-date+AFTER+${fromDate}` : ''
+    const url = `activity?maxResults=${maxResults}&streams=user+IS+${encodeURIComponent(jiraSettings.username)}${fromDateFilter}&os_authType=basic`
     const response = await requestWithCredentials(jiraSettings, url).buffer(true).parse(xml2jsparser)
 
     const activities = response.body.feed.entry.map((entry: any) => convertToActivityEntry(entry))
@@ -36,7 +37,7 @@ export const getActivities = async (jiraSettings: JiraSettings, maxResults: numb
         if (activity) {
             const parent = await getParentIssue(jiraSettings, activity)
 
-            addToResult(result, parent || activity)
+            addToResult(result, parent || activity, activity.date)
         }
     }
 
@@ -91,13 +92,13 @@ const convertToActivityEntry = (entry: any): ActivityEntry | undefined => {
     return undefined
 }
 
-const addToResult = async (result: GroupedActivities, entry: ActivityEntry) => {
-    if (!result.hasOwnProperty(entry.date)) {
-        result[entry.date] = {}
+const addToResult = async (result: GroupedActivities, entry: ActivityEntry, date: string) => {
+    if (!result.hasOwnProperty(date)) {
+        result[date] = {}
     }
 
-    if (!result[entry.date].hasOwnProperty(entry.id)) {
-        result[entry.date][entry.id] = entry.title
+    if (!result[date].hasOwnProperty(entry.id)) {
+        result[date][entry.id] = entry.title
     }
 }
 

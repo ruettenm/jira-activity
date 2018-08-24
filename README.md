@@ -20,6 +20,10 @@ jira-activity list
 
 # if you do not have defaults or wants to override them
 jira-activity list -u your@username.com -h some.hostname
+
+# if you only want to see your activities for the current week or month
+jira-activity list -f week
+jira-activity list -f month
 ```
 
 ## How to develop
