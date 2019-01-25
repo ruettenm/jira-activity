@@ -18,6 +18,7 @@ program
     .option('-h, --hostname <hostname>', 'specifies the hostname which is used')
     .option('-u, --username <username>', 'specifies the username which is used')
     .option('-f, --filter <type>', 'filters the list to the current week or month [type: week or month]')
+    .option('-v, --verbose', 'run in verbose mode')
     .option('-m, --max <number>', 'specifies the number of max results. The default is: 500', parseInt)
     .description('Loads your activity and lists the parent issues you have worked on grouped by day')
 

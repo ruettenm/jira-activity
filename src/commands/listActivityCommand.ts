@@ -16,12 +16,17 @@ export const listActivityCommand = async (command: any) => {
         const username = command.username || settingsStore.value('settings.username')
         const maxResults = command.max || 500
         const filter = command.filter
+        const verbose = command.verbose
 
         if (filter) {
             if (!['week', 'month'].includes(filter)) {
                 console.error('Please use the term "week" or "month" to filter the output')
                 process.exit(1)
             }
+        }
+
+        if (verbose) {
+            console.log('Running in "verbose" mode.')
         }
 
         if (!hostname || !username) {
@@ -37,17 +42,16 @@ export const listActivityCommand = async (command: any) => {
                 name: 'password'
             }) as any
 
-            const jiraSettings: JiraSettings = {
-                username,
-                password,
-                hostname
-            }
+            const jiraSettings: JiraSettings = { username, password, hostname }
 
-            spinner.start()
+            if (!verbose) {
+                spinner.start()
+            }
             try {
                 const activities = await getActivities(
                     jiraSettings,
                     maxResults,
+                    verbose,
                     filter ? moment().startOf(filter).unix() * 1000 : undefined
                 )
                 print(activities)
@@ -55,7 +59,9 @@ export const listActivityCommand = async (command: any) => {
                 console.log(`\nOps, something went wrong: "${error.message}"`)
             }
 
-            spinner.stop(true)
+            if (!verbose) {
+                spinner.stop(true)
+            }
         }
 
         process.exit(0)
