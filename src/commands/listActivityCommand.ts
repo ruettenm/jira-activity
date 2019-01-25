@@ -44,14 +44,18 @@ export const listActivityCommand = async (command: any) => {
             }
 
             spinner.start()
-            const activities = await getActivities(
-                jiraSettings,
-                maxResults,
-                filter ? moment().startOf(filter).unix() * 1000 : undefined
-            )
-            spinner.stop(true)
+            try {
+                const activities = await getActivities(
+                    jiraSettings,
+                    maxResults,
+                    filter ? moment().startOf(filter).unix() * 1000 : undefined
+                )
+                print(activities)
+            } catch (error) {
+                console.log(`\nOps, something went wrong: "${error.message}"`)
+            }
 
-            print(activities)
+            spinner.stop(true)
         }
 
         process.exit(0)

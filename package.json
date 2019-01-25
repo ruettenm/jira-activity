@@ -39,8 +39,7 @@
         "moment": "^2.22.2",
         "settings-store": "1.4.0",
         "superagent": "^3.8.3",
-        "superagent-xml2jsparser": "^0.1.1",
-        "xml-parser": "^1.2.1"
+        "xml2js-es6-promise": "^1.1.1"
     },
     "devDependencies": {
         "@types/commander": "^2.12.2",
@@ -48,7 +47,6 @@
         "@types/moment": "^2.13.0",
         "@types/node": "8.9",
         "@types/superagent": "^3.8.2",
-        "@types/xml-parser": "^1.2.29",
         "npm-github-release": "^0.9.0",
         "ts-node": "6",
         "typescript": "^2.9.2"

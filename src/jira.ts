@@ -1,6 +1,6 @@
 import * as request from 'superagent'
-import * as xml2jsparser from 'superagent-xml2jsparser'
-import * as settingsStore from "settings-store"
+import * as settingsStore from 'settings-store'
+const xml2js = require('xml2js-es6-promise');
 
 settingsStore.init({
     appName: 'jira-activity',
@@ -31,9 +31,10 @@ export interface GroupedActivities {
 export const getActivities = async (jiraSettings: JiraSettings, maxResults: number, fromDate?: number): Promise<GroupedActivities> => {
     const fromDateFilter = fromDate ? `&streams=update-date+AFTER+${fromDate}` : ''
     const url = `activity?maxResults=${maxResults}&streams=user+IS+${encodeURIComponent(jiraSettings.username)}${fromDateFilter}&os_authType=basic`
-    const response = await requestWithCredentials(jiraSettings, url).buffer(true).parse(xml2jsparser)
+    const response = await requestWithCredentials(jiraSettings, url).buffer(true)
+    const body = await xml2js(response.text)
 
-    const activities = response.body.feed.entry.map((entry: any) => convertToActivityEntry(entry))
+    const activities = body.feed.entry.map((entry: any) => convertToActivityEntry(entry))
 
     const result: GroupedActivities = {}
     for (let activity of activities) {
@@ -46,7 +47,7 @@ export const getActivities = async (jiraSettings: JiraSettings, maxResults: numb
 
     return result
 }
-    
+
 const getParentIssue = async (jiraSettings: JiraSettings, activity: ActivityEntry): Promise<CachedEntry | undefined> => {
     const parentIssue = settingsStore.value(`issues.${activity.id}`)
     if (parentIssue) {
@@ -63,7 +64,7 @@ const getParentIssue = async (jiraSettings: JiraSettings, activity: ActivityEntr
 }
 
 const getParentIssueFromJira = async (jiraSettings: JiraSettings, activity: ActivityEntry): Promise<CachedEntry | undefined> => {
-    const response = await requestWithCredentials(jiraSettings, `rest/api/2/issue/${activity.id}`)
+    const response = await requestWithCredentials(jiraSettings, `rest/api/2/issue/${activity.id}`).buffer(false)
     const parent = response.body.fields.parent
 
     if (parent) {
