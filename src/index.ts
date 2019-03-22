@@ -13,9 +13,12 @@ settingsStore.init({
 })
 
 program
+    .version(process.env.npm_package_version || 'unknown', '-v, --version')
+
+program
     .command('list')
     .action(listActivityCommand)
-    .option('-h, --hostname <hostname>', 'specifies the hostname which is used')
+    .option('-ho, --hostname <hostname>', 'specifies the hostname which is used')
     .option('-u, --username <username>', 'specifies the username which is used')
     .option('-f, --filter <type>', 'filters the list to the current week or month [type: week or month]')
     .option('-v, --verbose', 'run in verbose mode')
