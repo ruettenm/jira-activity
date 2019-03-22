@@ -43,3 +43,7 @@ yarn dev [command]
 yarn dev list
 yarn dev defaults
 ```
+
+### How to release a new version
+1. commit all your changes
+2. execute `npm run release`
