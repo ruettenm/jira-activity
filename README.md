@@ -46,4 +46,13 @@ yarn dev defaults
 
 ### How to release a new version
 1. commit all your changes
-2. execute `npm run release`
+2. execute the `release` command. The command will automatically do a version bump.
+```
+npm run release
+
+Versioning package...
+Pushing new release tag to GitHub...
+Creating a new GitHub release...
+v1.5.0 released to GitHub - https://github.com/ruettenm/jira-activity/releases/tag/v1.5.0
+v1.5.0 released to npm - https://www.npmjs.com/package/jira-activity
+```
