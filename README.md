@@ -46,7 +46,7 @@ yarn dev defaults
 
 ### How to release a new version
 1. commit all your changes
-2. execute the `release` command. The command will automatically do a version bump.
+2. execute the `release` (with npm NOT yarn) command. The command will automatically do a version bump.
 ```
 npm run release
 
