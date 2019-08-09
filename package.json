@@ -1,6 +1,6 @@
 {
     "name": "jira-activity",
-    "version": "1.6.0",
+    "version": "1.6.1",
     "description": "This tool parses your jira activity stream and returns a list of your workitems grouped by day.",
     "main": "index.ts",
     "bin": {
