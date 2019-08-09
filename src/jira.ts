@@ -43,14 +43,17 @@ export const getActivities = async (jiraSettings: JiraSettings, maxResults: numb
         console.log('\nStart mapping the entries')
     }
 
-    const activities = body.feed.entry.map((entry: any) => convertToActivityEntry(entry))
-
     const result: GroupedActivities = {}
-    for (let activity of activities) {
-        if (activity) {
-            const parent = await getIssue(jiraSettings, activity, verbose)
 
-            addToResult(result, parent, activity.date)
+    if (body.feed && body.feed.entry) {
+        const activities = body.feed.entry.map((entry: any) => convertToActivityEntry(entry))
+
+        for (let activity of activities) {
+            if (activity) {
+                const parent = await getIssue(jiraSettings, activity, verbose)
+
+                addToResult(result, parent, activity.date)
+            }
         }
     }
 
@@ -126,7 +129,7 @@ const convertToActivityEntry = (entry: any): ActivityEntry | undefined => {
     return undefined
 }
 
-const addToResult = async (result: GroupedActivities, entry: CachedEntry, date: string) => {
+const addToResult = (result: GroupedActivities, entry: CachedEntry, date: string) => {
     if (!result.hasOwnProperty(date)) {
         result[date] = {}
     }
