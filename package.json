@@ -53,6 +53,7 @@
         "typescript": "^2.9.2"
     },
     "resolutions": {
-        "lodash": "^4.17.13"
+        "lodash": "^4.17.13",
+        "deep-extend": "^0.5.1"
     }
 }
