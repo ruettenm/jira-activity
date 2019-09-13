@@ -1,6 +1,7 @@
 import * as request from 'superagent'
 import * as settingsStore from 'settings-store'
-const xml2js = require('xml2js-es6-promise');
+import * as emojiStrip from 'emoji-strip'
+const xml2js = require('xml2js-es6-promise')
 
 settingsStore.init({
     appName: 'jira-activity',
@@ -135,7 +136,7 @@ const addToResult = (result: GroupedActivities, entry: CachedEntry, date: string
     }
 
     if (!result[date].hasOwnProperty(entry.id)) {
-        result[date][entry.id] = entry.title
+        result[date][entry.id] = emojiStrip(entry.title)
     }
 }
 

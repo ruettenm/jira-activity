@@ -336,6 +336,16 @@ ecc-jsbn@~0.1.1:
   dependencies:
     jsbn "~0.1.0"
 
+emoji-regex@^6.1.3:
+  version "6.5.1"
+  resolved "https://registry.yarnpkg.com/emoji-regex/-/emoji-regex-6.5.1.tgz#9baea929b155565c11ea41c6626eaa65cef992c2"
+
+emoji-strip@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/emoji-strip/-/emoji-strip-1.0.1.tgz#cf9390535044121888420ae4db436d03a6cc459d"
+  dependencies:
+    emoji-regex "^6.1.3"
+
 escape-string-regexp@^1.0.2, escape-string-regexp@^1.0.5:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/escape-string-regexp/-/escape-string-regexp-1.0.5.tgz#1b61c0562190a8dff6ae3bb2cf0200ca130b86d4"
@@ -755,7 +765,7 @@ safe-buffer@^5.0.1, safe-buffer@^5.1.1, safe-buffer@~5.1.0, safe-buffer@~5.1.1:
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/safer-buffer/-/safer-buffer-2.1.2.tgz#44fa161b0187b9549dd84bb91802f9bd8385cd6a"
 
-sax@>=0.6.0, sax@^1.2.1:
+sax@>=0.6.0:
   version "1.2.4"
   resolved "https://registry.yarnpkg.com/sax/-/sax-1.2.4.tgz#2816234e2378bddc4e5354fab5caa895df7100d9"
 
@@ -936,12 +946,6 @@ xml2js-es6-promise@^1.1.1:
   resolved "https://registry.yarnpkg.com/xml2js-es6-promise/-/xml2js-es6-promise-1.1.1.tgz#cd5688d9d6344e67c908f71e5b0a3d88d128e9a2"
   dependencies:
     xml2js "^0.4.16"
-
-xml2js-parser@^1.1.1:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/xml2js-parser/-/xml2js-parser-1.1.1.tgz#90dc39f9d84d036ae10f41e6e766a91550444d44"
-  dependencies:
-    sax "^1.2.1"
 
 xml2js@^0.4.16:
   version "0.4.19"
