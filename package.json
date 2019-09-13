@@ -51,5 +51,8 @@
         "npm-github-release": "^0.9.0",
         "ts-node": "6",
         "typescript": "^2.9.2"
+    },
+    "resolutions": {
+        "lodash": "^4.17.13"
     }
 }
