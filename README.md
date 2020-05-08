@@ -32,7 +32,11 @@ jira-activity list -f month
 ```bash
 nvm use
 
-npm i yarn@1.6.0
+# install yarn  
+npm i -g yarn
+
+# install dependencies
+yarn
 ```
 
 ### How to call the library
